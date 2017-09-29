@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
@@ -7,9 +8,9 @@ import {
 	SearchkitComponentProps
 } from "../../../../../core"
 
-const defaults = require("lodash/defaults")
-const map = require("lodash/map")
-const identity = require("lodash/identity")
+import {defaults} from "lodash"
+import {map} from "lodash"
+import {identity} from "lodash"
 
 export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	id:string
@@ -25,15 +26,16 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	public accessor:HierarchicalFacetAccessor
 
 	static defaultProps = {
-		countFormatter:identity
+		countFormatter:identity,
+		size: 20
 	}
 	static propTypes = defaults({
-		id:React.PropTypes.string.isRequired,
-		fields:React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-		title:React.PropTypes.string.isRequired,
-		orderKey:React.PropTypes.string,
-		orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
-		countFormatter:React.PropTypes.func
+		id:PropTypes.string.isRequired,
+		fields:PropTypes.arrayOf(PropTypes.string).isRequired,
+		title:PropTypes.string.isRequired,
+		orderKey:PropTypes.string,
+		orderDirection:PropTypes.oneOf(["asc", "desc"]),
+		countFormatter:PropTypes.func
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
@@ -45,7 +47,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	}
 
 	defineAccessor() {
-		const {id, title, fields, size=0, orderKey, orderDirection} = this.props
+		const {id, title, fields, size, orderKey, orderDirection} = this.props
 		return new HierarchicalFacetAccessor(id, {
 			id, title, fields, size, orderKey, orderDirection
 		})

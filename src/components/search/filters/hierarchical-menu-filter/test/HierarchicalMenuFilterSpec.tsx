@@ -5,7 +5,7 @@ import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__tes
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("MenuFilter tests", () => {
 
@@ -42,7 +42,7 @@ describe("MenuFilter tests", () => {
     expect(this.accessor.key).toBe("categories")
     expect(this.accessor.options).toEqual({
       id: 'categories', title: 'Categories',
-      fields: ['lvl1', 'lvl2'], size: 0,
+      fields: ['lvl1', 'lvl2'], size: 20,
       orderKey:"_term", orderDirection:"asc"
     })
   })
