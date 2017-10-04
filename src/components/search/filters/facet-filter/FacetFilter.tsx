@@ -104,6 +104,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
         setItems: this.setFilters.bind(this),
         docCount: this.accessor.getDocCount(),
         showCount,
+        customFieldsOption: this.props.customFieldsOption,
         translate:this.translate,
         countFormatter
       }),

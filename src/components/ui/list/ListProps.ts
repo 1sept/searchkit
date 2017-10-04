@@ -12,6 +12,7 @@ export interface ListProps {
   showCount?: boolean
   translate?: (s: string) => string
   multiselect?: boolean // if true, uses toggleItem, else uses setItems
+  customFieldsOption?: any
 }
 
 export interface ItemProps {
@@ -26,4 +27,5 @@ export interface ItemProps {
   style?: any
   listDocCount?: number // number of documents for this list
   itemKey?:string
+  customFieldsOption?: any
 }

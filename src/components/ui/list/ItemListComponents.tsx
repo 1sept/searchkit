@@ -41,9 +41,25 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
     const {
       mod, itemComponent, items, selectedItems = [], translate,
       toggleItem, setItems, multiselect, countFormatter,
-      disabled, showCount, className, docCount
+      disabled, showCount, className, docCount, customFieldsOption
     } = this.props
 
+    // console.log(this.props)
+    // children:null
+    // countFormatter:ƒ uc(t)
+    // customFieldsOption:(2) [{…}, {…}]
+    // docCount:0
+    // itemComponent:ƒ e()
+    // items:[{…}]
+    // mod:"sk-item-list"
+    // multiselect:true
+    // selectItems:[]
+    // selectedItems:["$all"]
+    // setItems:ƒ ()
+    // showCount:true
+    // toggleItem:ƒ ()
+    // translate:ƒ ()
+    // key:(...)
     const bemBlocks = {
       container: block(mod),
       option: block(`${mod}-option`)
@@ -53,6 +69,9 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
 
     const actions = map(items, (option) => {
       const label = option.title || option.label || option.key
+      // console.log(option)
+      // doc_count:92
+      // key:"Английский язык"
       return React.createElement(itemComponent, {
         label: translate(label),
         onClick: () => toggleFunc(option.key),
@@ -63,6 +82,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         rawCount:option.doc_count,
         listDocCount: docCount,
         disabled:option.disabled,
+        customFieldsOption,
         showCount,
         active: this.isActive(option)
       })

@@ -22,6 +22,8 @@ function itemRenderer(props: ItemComponentProps) {
     .mix(bemBlocks.container("item"))
 
   const hasCount = showCount && (count != undefined) && (count != null)
+  console.log('item render props')
+  console.log(props)
   return (
     <FastClick handler={onClick}>
       <div className={className} style={style} data-qa="option" data-key={itemKey}>
