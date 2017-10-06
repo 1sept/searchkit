@@ -28,11 +28,19 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
   }
 
   isActive(option){
-    const { selectedItems, multiselect } = this.props
+    const { selectedItems, multiselect } = this.props;
     if (multiselect){
+      if (typeof option.key === "number" && typeof selectedItems[0] === "string") {
+        option.key = option.key + ""
+      }
       return includes(selectedItems, option.key)
     } else {
-      if (selectedItems.length == 0) return null
+      if (selectedItems.length == 0){
+        return null
+      }
+      if (typeof option.key === "number" && typeof selectedItems[0] === "string"){
+         return selectedItems[0] == option.key + ""
+       }
       return selectedItems[0] == option.key
     }
   }
