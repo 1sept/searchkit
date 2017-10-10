@@ -24,8 +24,6 @@ function itemRenderer(props: ItemComponentProps) {
   // console.log('render item, console className')
   // console.log(className);
   const hasCount = showCount && (count != undefined) && (count != null)
-  // console.log('item render props')
-  // console.log(props)
   return (
     <FastClick handler={itemKey === undefined ? ('') : onClick}>
       <div className={className} data-qa="option" data-key={itemKey} data-type={category}>

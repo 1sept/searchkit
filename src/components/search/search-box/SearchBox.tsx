@@ -170,7 +170,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
           ref="queryField"
           autoFocus={this.props.autofocus}
           onInput={this.onChange.bind(this)}/>
-          <input type="submit" value="search" className={block("action")} data-qa="submit"/>
+          <button type="submit" value="" className={block("action").mix("fi flaticon-search")} data-qa="submit" onClick={this.onSubmit.bind(this)}></button>
           <div data-qa="loader" className={block("loader").mix("sk-spinning-loader").state({hidden:!this.isLoading()})}></div>
         </form>
       </div>

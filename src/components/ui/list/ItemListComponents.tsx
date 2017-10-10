@@ -40,7 +40,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       }
       if (typeof option.key === "number" && typeof selectedItems[0] === "string"){
          return selectedItems[0] == option.key + ""
-       }
+      }
       return selectedItems[0] == option.key
     }
   }
@@ -79,6 +79,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         items.map(item => {
           if (item.key == field.text) {
             field.key = item.key;
+            //if (typeof item.key == 'number') {console.log("number");  field.key = field.key*1};
             field.doc_count = item.doc_count;
           }
           return field;
