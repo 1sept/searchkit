@@ -111,8 +111,8 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         const label = option.title || option.label || option.key || option.text
         // doc_count:92
         // key:"Английский язык"
-        console.log('actions')
-        console.log(actions)
+        //console.log('actions')
+        //console.log(actions)
         return React.createElement(itemComponent, {
           label: translate(label),
           onClick: () => toggleFunc(option.key),
@@ -133,30 +133,30 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       })
       if(hederedList.length>0){
         var actionsTwoLevels = hederedList.map(header=>{
-          console.log('header')
-          console.log(header)
+          //console.log('header')
+          //console.log(header)
           var actionLowLevel = header.items.map((option) => {
-            console.log('actionLowLevel')
-            console.log(option)
-            return (<span>one</span>)
-          //   // const label = option.title || option.label || option.key || option.text
-          //   // return React.createElement(itemComponent, {
-          //   //   label: translate(label),
-          //   //   onClick: () => toggleFunc(option.key),
-          //   //   bemBlocks: bemBlocks,
-          //   //   key: option.key,
-          //   //   itemKey: option.key,
-          //   //   count: countFormatter(option.doc_count),
-          //   //   rawCount: option.doc_count,
-          //   //   listDocCount: docCount,
-          //   //   disabled: option.disabled,
-          //   //   customFieldsOption,
-          //   //   showCount,
-          //   //   icon: option.icon,
-          //   //   addText: option.addText,
-          //   //   category: option.category,
-          //   //   active: this.isActive(option)
-          //   // })
+            //console.log('actionLowLevel')
+            //console.log(option)
+            //return (<span>one</span>)
+            const label = option.title || option.label || option.key || option.text
+            return React.createElement(itemComponent, {
+              label: translate(label),
+              onClick: () => toggleFunc(option.key),
+              bemBlocks: bemBlocks,
+              key: option.key,
+              itemKey: option.key,
+              count: countFormatter(option.doc_count),
+              rawCount: option.doc_count,
+              listDocCount: docCount,
+              disabled: option.disabled,
+              customFieldsOption,
+              showCount,
+              icon: option.icon,
+              addText: option.addText,
+              category: option.category,
+              active: this.isActive(option)
+            })
           })
           return (
             <div className='menuHeader' key={header.header}>
