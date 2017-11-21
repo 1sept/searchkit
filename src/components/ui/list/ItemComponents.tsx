@@ -21,18 +21,31 @@ function itemRenderer(props: ItemComponentProps) {
     .state({ active, disabled })
     .mix(bemBlocks.container("item"))
     .mix(itemKey === undefined ? "inactive" : "")
-  // console.log('render item, console className')
   // console.log(className);
+  // console.log(category);
   const hasCount = showCount && (count != undefined) && (count != null)
-  return (
-    <FastClick handler={itemKey === undefined ? ('') : onClick}>
-      <div className={className} data-qa="option" data-key={itemKey} data-type={category}>
-        {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active })} data-type={category}></input> : undefined}
-        <div data-qa="label" className={block("text")}><span className={icon ? icon : ''}></span>{label}<span className="classText">{addText ? addText : ''}</span></div>
-        {hasCount ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}
-      </div>
-    </FastClick>
-  )
+  if(props.customFieldsOption!= undefined){
+    return (
+      <FastClick handler={itemKey === undefined ? ('') : onClick}>
+        <div className={className} data-qa="option" data-key={itemKey} data-type={category}>
+          {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active })} data-type={category}></input> : undefined}
+          <div data-qa="label" className={block("text")}><span className={icon ? icon : ''}></span>{label}<span className="classText">{addText ? addText : ''}</span></div>
+          {hasCount ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}
+        </div>
+      </FastClick>
+    )
+  }else{ // old searchkit without customFieldsOption
+    //console.log('old searchkit')
+    return (
+      <FastClick handler={onClick}>
+        <div className={className} style={style} data-qa="option" data-key={itemKey}>
+          {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
+          <div data-qa="label" className={block("text") }>{label}</div>
+          {hasCount ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}
+        </div>
+      </FastClick>
+    )
+  }
 }
 
 @PureRender

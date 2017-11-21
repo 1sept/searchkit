@@ -32,6 +32,7 @@ export interface FacetFilterProps extends SearchkitComponentProps {
   countFormatter?:(count:number)=> number | string
   bucketsTransform?:Function
   customFieldsOption?:any
+  skManager?:any
 }
 
 export const FacetFilterPropTypes = defaults({
@@ -62,5 +63,6 @@ export const FacetFilterPropTypes = defaults({
   }),
   countFormatter:PropTypes.func,
   bucketsTransform:PropTypes.func,
-  customFieldsOption:PropTypes.object
+  customFieldsOption:PropTypes.object,
+  skManager:PropTypes.object
 },SearchkitComponent.propTypes)

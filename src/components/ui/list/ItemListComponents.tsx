@@ -72,68 +72,78 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       container: block(mod),
       option: block(`${mod}-option`)
     }
+    // console.log('begin items render');
+    // console.log(items);
+    // console.log('this');
+    // console.log(this);
 
     const toggleFunc = multiselect ? toggleItem : (key => setItems([key]))
     if (customFieldsOption) {
-      const completeList = customFieldsOption.map(field => {
-        items.map(item => {
-          if (item.key == field.text) {
-            field.key = item.key;
-            //if (typeof item.key == 'number') {console.log("number");  field.key = field.key*1};
-            field.doc_count = item.doc_count;
-          }
+      // console.log('customFieldsOption on')
+        const completeList = customFieldsOption.map(field => {
+          items.map(item => {
+            if (item.key == field.text) {
+              field.key = item.key;
+              //if (typeof item.key == 'number') {console.log("number");  field.key = field.key*1};
+              field.doc_count = item.doc_count;
+            }
+            return field;
+          })
           return field;
         })
-      return field;
-    })
-    const actions = completeList.map((option) => {
-      const label = option.title || option.label || option.key || option.text
+        //console.log('all filtering done');
+        //console.log(completeList)
+      const actions = completeList.map((option) => {
+        const label = option.title || option.label || option.key || option.text
       // doc_count:92
       // key:"Английский язык"
-      return React.createElement(itemComponent, {
-        label: translate(label),
-        onClick: () => toggleFunc(option.key),
-        bemBlocks: bemBlocks,
-        key: option.key,
-        itemKey:option.key,
-        count: countFormatter(option.doc_count),
-        rawCount:option.doc_count,
-        listDocCount: docCount,
-        disabled:option.disabled,
-        customFieldsOption,
-        showCount,
-        icon: option.icon,
-        addText: option.addText,
-        category: option.category,
-        active: this.isActive(option)
+        return React.createElement(itemComponent, {
+          label: translate(label),
+          onClick: () => toggleFunc(option.key),
+          bemBlocks: bemBlocks,
+          key: option.key,
+          itemKey: option.key,
+          count: countFormatter(option.doc_count),
+          rawCount:option.doc_count,
+          listDocCount: docCount,
+          disabled:option.disabled,
+          customFieldsOption,
+          showCount,
+          icon: option.icon,
+          addText: option.addText,
+          category: option.category,
+          active: this.isActive(option)
+        })
       })
-    })
-    return (
-      <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>
-        {actions}
-      </div>
-    )
-  }else{
-    const actions = map(items, (option) => {
-      const label = option.title || option.label || option.key
-      // console.log(option)
-      // doc_count:92
-      // key:"Английский язык"
-      return React.createElement(itemComponent, {
-        label: translate(label),
-        onClick: () => toggleFunc(option.key),
-        bemBlocks: bemBlocks,
-        key: option.key,
-        itemKey:option.key,
-        count: countFormatter(option.doc_count),
-        rawCount:option.doc_count,
-        listDocCount: docCount,
-        disabled:option.disabled,
-        customFieldsOption,
-        showCount,
-        active: this.isActive(option)
+      return (
+        <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>
+          {actions}
+        </div>
+      )
+    }else{
+      // console.log('customFieldsOption off')
+      // console.log(this.props);
+      const actions = map(items, (option) => {
+        const label = option.title || option.label || option.key
+        // console.log(option)
+        // doc_count:92
+        // key:"Английский язык"
+        return React.createElement(itemComponent, {
+          label: translate(label),
+          onClick: () => toggleFunc(option.key),
+          bemBlocks: bemBlocks,
+          key: option.key,
+          itemKey: option.key,
+          count: countFormatter(option.doc_count),
+          rawCount:option.doc_count,
+          listDocCount: docCount,
+          disabled:option.disabled,
+          customFieldsOption,
+          showCount,
+          active: this.isActive(option)
+        })
       })
-    })
+      // console.log(actions);
     return (
       <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>
         {actions}

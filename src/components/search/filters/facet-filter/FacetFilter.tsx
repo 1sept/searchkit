@@ -90,26 +90,86 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
 
   render() {
     const { listComponent, containerComponent, showCount, title, id, countFormatter } = this.props
-    return renderComponent(containerComponent, {
-      title,
-      className: id ? `filter--${id}` : undefined,
-      disabled: !this.hasOptions()
-    }, [
-      renderComponent(listComponent, {
-        key:"listComponent",
-        items: this.getItems(),
-        itemComponent:this.props.itemComponent,
-        selectedItems: this.getSelectedItems(),
-        toggleItem: this.toggleFilter.bind(this),
-        setItems: this.setFilters.bind(this),
-        docCount: this.accessor.getDocCount(),
-        showCount,
-        customFieldsOption: this.props.customFieldsOption,
-        translate:this.translate,
-        countFormatter
-      }),
-      this.renderShowMore()
-    ]);
+    const items = this.getItems();
+    //console.log('this item')
+    //console.log(items)
+    if(this.props.customFieldsOption){
+      //console.log(this.props.skManager);
+      if(this.props.skManager){
+        const skManager = this.props.skManager
+        //console.log('getManager')
+        //console.log(skManager.results);
+        if(skManager.results){
+          //console.log(this.props.skManager.results.aggregations)
+          Object.keys(skManager.results.aggregations).forEach(function(key,index) {
+            if(key.indexOf('topic')>-1 && items.length <= 1){ //&& skManager.results.aggregations[key]['topic'].buckets.length > 0){
+              items[0].doc_count = skManager.results.aggregations[key]['topic.raw'].buckets.length;
+              skManager.results.aggregations[key]['topic.raw'].buckets.map(menuItem => {
+                items.push(menuItem);
+              })
+            }
+            // if(key.indexOf('unit')>-1 && items.length <= 1 && skManager.results.aggregations[key]['unit'].buckets.length > 0){
+            //   items[0].doc_count = skManager.results.aggregations[key]['unit'].buckets.length;
+            //   skManager.results.aggregations[key]['unit'].buckets.map(menuItem => {
+            //     items.push(menuItem);
+            //   })
+            // }
+            // if(key.indexOf('subject')>-1 && items.length <= 1 && skManager.results.aggregations[key]['subject'].buckets.length > 0){
+            //   items[0].doc_count = skManager.results.aggregations[key]['subject'].buckets.length;
+            //   skManager.results.aggregations[key]['subject'].buckets.map(menuItem => {
+            //     items.push(menuItem);
+            //   })
+            // }
+          })
+
+        }
+        //console.log(Object.keys(this.props.skManager.results));
+        // if((Object.keys(this.props.skManager.results.aggregations)).indefOf('topic')>-1){
+        //   console.log(this.props.skManager.results.aggregations[])
+        // }
+      }
+      console.log(items);
+      return renderComponent(containerComponent, {
+        title,
+        className: id ? `filter--${id}` : undefined,
+        disabled: !this.hasOptions()
+      }, [
+        renderComponent(listComponent, {
+          key:"listComponent",
+          items: items,
+          itemComponent: this.props.itemComponent,
+          selectedItems: this.getSelectedItems(),
+          toggleItem: this.toggleFilter.bind(this),
+          setItems: this.setFilters.bind(this),
+          docCount: this.accessor.getDocCount(),
+          showCount,
+          customFieldsOption: this.props.customFieldsOption,
+          translate:this.translate,
+          countFormatter
+        }),
+        this.renderShowMore()
+      ]);
+    }else{
+      return renderComponent(containerComponent, {
+          title,
+          className: id ? `filter--${id}` : undefined,
+          disabled: !this.hasOptions()
+        }, [
+          renderComponent(listComponent, {
+            key:"listComponent",
+            items: this.getItems(),
+            itemComponent:this.props.itemComponent,
+            selectedItems: this.getSelectedItems(),
+            toggleItem: this.toggleFilter.bind(this),
+            setItems: this.setFilters.bind(this),
+            docCount: this.accessor.getDocCount(),
+            showCount,
+            translate:this.translate,
+            countFormatter
+          }),
+          this.renderShowMore()
+      ]);
+    }
   }
 
   renderShowMore() {
