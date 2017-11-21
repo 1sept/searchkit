@@ -72,31 +72,47 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       container: block(mod),
       option: block(`${mod}-option`)
     }
-    // console.log('begin items render');
-    // console.log(items);
-    // console.log('this');
-    // console.log(this);
 
     const toggleFunc = multiselect ? toggleItem : (key => setItems([key]))
     if (customFieldsOption) {
-      // console.log('customFieldsOption on')
-        const completeList = customFieldsOption.map(field => {
-          items.map(item => {
-            if (item.key == field.text) {
-              field.key = item.key;
-              //if (typeof item.key == 'number') {console.log("number");  field.key = field.key*1};
-              field.doc_count = item.doc_count;
-            }
-            return field;
-          })
+      var allHeaders = [];
+      var hederedList = [];
+      //console.log('customFieldsOption');
+      //console.log(customFieldsOption);
+      const completeList = customFieldsOption.map(field => {
+        items.map(item => {
+          if (item.key == field.text) {
+            field.key = item.key;
+            //if (typeof item.key == 'number') {console.log("number");  field.key = field.key*1};
+            field.doc_count = item.doc_count;
+          }
           return field;
         })
-        //console.log('all filtering done');
-        //console.log(completeList)
+        return field;
+      })
+      if(completeList.length>0 && completeList[0].hasOwnProperty('header')){
+        completeList.map(menuItem=>{
+          if(allHeaders.indexOf(menuItem.header)==-1){
+            allHeaders.push(menuItem.header)
+          }
+        })
+        allHeaders.map(header=>{
+          var filteredItemsByHeader = completeList.filter(menuItem=>{
+            return menuItem.header == header
+          })
+          hederedList.push({header:header,items:filteredItemsByHeader})
+        })
+      }
+      //console.log('hederedList')
+      //console.log(hederedList)
+      //console.log('all filtering done');
+      //console.log(completeList)
       const actions = completeList.map((option) => {
         const label = option.title || option.label || option.key || option.text
-      // doc_count:92
-      // key:"Английский язык"
+        // doc_count:92
+        // key:"Английский язык"
+        console.log('actions')
+        console.log(actions)
         return React.createElement(itemComponent, {
           label: translate(label),
           onClick: () => toggleFunc(option.key),
@@ -104,9 +120,9 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
           key: option.key,
           itemKey: option.key,
           count: countFormatter(option.doc_count),
-          rawCount:option.doc_count,
+          rawCount: option.doc_count,
           listDocCount: docCount,
-          disabled:option.disabled,
+          disabled: option.disabled,
           customFieldsOption,
           showCount,
           icon: option.icon,
@@ -115,6 +131,47 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
           active: this.isActive(option)
         })
       })
+      if(hederedList.length>0){
+        var actionsTwoLevels = hederedList.map(header=>{
+          console.log('header')
+          console.log(header)
+          var actionLowLevel = header.items.map((option) => {
+            console.log('actionLowLevel')
+            console.log(option)
+            return (<span>one</span>)
+          //   // const label = option.title || option.label || option.key || option.text
+          //   // return React.createElement(itemComponent, {
+          //   //   label: translate(label),
+          //   //   onClick: () => toggleFunc(option.key),
+          //   //   bemBlocks: bemBlocks,
+          //   //   key: option.key,
+          //   //   itemKey: option.key,
+          //   //   count: countFormatter(option.doc_count),
+          //   //   rawCount: option.doc_count,
+          //   //   listDocCount: docCount,
+          //   //   disabled: option.disabled,
+          //   //   customFieldsOption,
+          //   //   showCount,
+          //   //   icon: option.icon,
+          //   //   addText: option.addText,
+          //   //   category: option.category,
+          //   //   active: this.isActive(option)
+          //   // })
+          })
+          return (
+            <div className='menuHeader' key={header.header}>
+              <h2>{header.header}</h2>
+              {actionLowLevel}
+            </div>
+          )
+        })
+        return (
+          <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>
+            {actionsTwoLevels}
+          </div>
+        )
+      }
+
       return (
         <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>
           {actions}

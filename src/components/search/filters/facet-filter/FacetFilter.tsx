@@ -128,7 +128,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
         //   console.log(this.props.skManager.results.aggregations[])
         // }
       }
-      console.log(items);
+      //console.log(items);
       return renderComponent(containerComponent, {
         title,
         className: id ? `filter--${id}` : undefined,
