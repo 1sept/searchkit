@@ -67,7 +67,8 @@
     "prop-types": "^15.5.8",
     "qs": "6.4.0",
     "rc-slider": "8.1.2",
-    "react-addons-update": "^15.4.0"
+    "react-addons-update": "^15.4.0",
+    "react-select": "^1.0.0-rc.10"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-0"

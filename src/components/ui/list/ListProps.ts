@@ -13,6 +13,7 @@ export interface ListProps {
   translate?: (s: string) => string
   multiselect?: boolean // if true, uses toggleItem, else uses setItems
   customFieldsOption?: any
+  select2Module?: string
   icon?: string
   category?: string
   addText?: string
@@ -30,6 +31,7 @@ export interface ItemProps {
   style?: any
   listDocCount?: number // number of documents for this list
   itemKey?:string
+  select2Module?: string
   customFieldsOption?: any
   icon?: string
   category?: string

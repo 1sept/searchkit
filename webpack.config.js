@@ -27,13 +27,13 @@ module.exports = {
       },
       compress: {
         warnings: false,
-        sequences: false,//true,
-        dead_code: false,//true,
-        conditionals: false,//true,
-        booleans: false,//true,
-        unused: false,//true,
-        if_return: false,//true,
-        join_vars: false,//true,
+        sequences: true,
+        dead_code: true,
+        conditionals: true,
+        booleans: true,
+        unused: true,
+        if_return: true,
+        join_vars: true,
         drop_console: false
       }
     })

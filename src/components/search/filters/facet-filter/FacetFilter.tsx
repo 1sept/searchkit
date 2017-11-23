@@ -144,6 +144,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
           docCount: this.accessor.getDocCount(),
           showCount,
           customFieldsOption: this.props.customFieldsOption,
+          select2Module: this.props.select2Module,
           translate:this.translate,
           countFormatter
         }),
@@ -163,6 +164,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
             toggleItem: this.toggleFilter.bind(this),
             setItems: this.setFilters.bind(this),
             docCount: this.accessor.getDocCount(),
+            select2Module: this.props.select2Module,
             showCount,
             translate:this.translate,
             countFormatter
