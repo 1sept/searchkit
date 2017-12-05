@@ -138,11 +138,11 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       })
       if(hederedList.length>0){
         var actionsTwoLevels = hederedList.map(header=>{
-          console.log('header')
-          console.log(header)
+          // console.log('header')
+          // console.log(header)
           var actionLowLevel = header.items.map((option) => {
-            console.log('actionLowLevel')
-            console.log(option)
+            // console.log('actionLowLevel')
+            // console.log(option)
             const label = option.title || option.label || option.key || option.text
             if(option.hasOwnProperty('doc_count') == false){
               return ''
@@ -166,12 +166,21 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
               })
             }
           })
-          return (
-            <div className='menuHeader' key={header.header}>
-              <h2>{header.header}</h2>
-              {actionLowLevel}
-            </div>
-          )
+          actionLowLevel = actionLowLevel.filter(item=>{
+            return item != ""
+          })
+          // console.log('actionLowLevel')
+          // console.log(actionLowLevel)
+          if(actionLowLevel.length<=0){
+            return ''
+          }else{
+            return (
+              <div className='menuHeader' key={header.header}>
+                <h2>{header.header}</h2>
+                {actionLowLevel}
+              </div>
+            )
+          }
         })
         return (
           <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>

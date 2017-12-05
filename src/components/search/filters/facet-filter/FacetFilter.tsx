@@ -121,14 +121,15 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
             //   })
             // }
           })
-
+          console.log('topic items!!!')
+          console.log(items);
         }
         //console.log(Object.keys(this.props.skManager.results));
         // if((Object.keys(this.props.skManager.results.aggregations)).indefOf('topic')>-1){
         //   console.log(this.props.skManager.results.aggregations[])
         // }
       }
-      //console.log(items);
+
       return renderComponent(containerComponent, {
         title,
         className: id ? `filter--${id}` : undefined,
