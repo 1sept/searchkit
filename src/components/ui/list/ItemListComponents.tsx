@@ -74,7 +74,12 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
     }
 
     const toggleFunc = multiselect ? toggleItem : (key => setItems([key]))
-    if (customFieldsOption) {
+
+
+
+
+
+    if (customFieldsOption && customFieldsOption != 'headered') {
       var allHeaders = [];
       var hederedList = [];
       //console.log('customFieldsOption');
@@ -133,30 +138,33 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       })
       if(hederedList.length>0){
         var actionsTwoLevels = hederedList.map(header=>{
-          //console.log('header')
-          //console.log(header)
+          console.log('header')
+          console.log(header)
           var actionLowLevel = header.items.map((option) => {
-            //console.log('actionLowLevel')
-            //console.log(option)
-            //return (<span>one</span>)
+            console.log('actionLowLevel')
+            console.log(option)
             const label = option.title || option.label || option.key || option.text
-            return React.createElement(itemComponent, {
-              label: translate(label),
-              onClick: () => toggleFunc(option.key),
-              bemBlocks: bemBlocks,
-              key: option.key,
-              itemKey: option.key,
-              count: countFormatter(option.doc_count),
-              rawCount: option.doc_count,
-              listDocCount: docCount,
-              disabled: option.disabled,
-              customFieldsOption,
-              showCount,
-              icon: option.icon,
-              addText: option.addText,
-              category: option.category,
-              active: this.isActive(option)
-            })
+            if(option.hasOwnProperty('doc_count') == false){
+              return ''
+            }else{
+              return React.createElement(itemComponent, {
+                label: translate(label),
+                onClick: () => toggleFunc(option.key),
+                bemBlocks: bemBlocks,
+                key: option.key,
+                itemKey: option.key,
+                count: countFormatter(option.doc_count),
+                rawCount: option.doc_count,
+                listDocCount: docCount,
+                disabled: option.disabled,
+                customFieldsOption,
+                showCount,
+                icon: option.icon,
+                addText: option.addText,
+                category: option.category,
+                active: this.isActive(option)
+              })
+            }
           })
           return (
             <div className='menuHeader' key={header.header}>
@@ -171,12 +179,12 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
           </div>
         )
       }
-
       return (
         <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>
           {actions}
         </div>
       )
+
     }else{
       // console.log('customFieldsOption off')
       // console.log(this.props);
@@ -200,7 +208,6 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
           active: this.isActive(option)
         })
       })
-      // console.log(actions);
     return (
       <div data-qa="options" className={bemBlocks.container().mix(className).state({ disabled }) }>
         {actions}

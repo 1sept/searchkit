@@ -53,8 +53,8 @@ export class Select extends React.Component<ListProps, any> {
     if (!state.id) {
       return state.text;
     }
-    console.log('template');
-    console.log(state);
+    //console.log('template');
+    //console.log(state);
     var baseUrl = "/user/pages/images/flags";
     var $state = $(
       '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
@@ -70,9 +70,9 @@ export class Select extends React.Component<ListProps, any> {
   componentDidUpdate(){
     if(this.props.customFieldsOption && this.props.select2Module){
       var $skSelect = $('#'+this.props.select2Module+' select');
-      console.log('componentDidUpdate')
-      console.log(this.props.customFieldsOption)
-      console.log(this.select2Template)
+      //console.log('componentDidUpdate')
+      //console.log(this.props.customFieldsOption)
+      //console.log(this.select2Template)
       $skSelect.select2({
         minimumResultsForSearch: Infinity,
         templateSelection: this.select2Template
@@ -85,9 +85,9 @@ export class Select extends React.Component<ListProps, any> {
     if(this.props.customFieldsOption && this.props.select2Module){
       var $skSelect = $('#'+this.props.select2Module+' select');
 
-      console.log('componentDidMount');
-      console.log(this.props.customFieldsOption);
-      console.log(this.select2Template)
+      //console.log('componentDidMount');
+      //console.log(this.props.customFieldsOption);
+      //console.log(this.select2Template)
 
       $skSelect.select2({
         minimumResultsForSearch: Infinity,
@@ -128,8 +128,8 @@ export class Select extends React.Component<ListProps, any> {
           <select onChange={this.onChange} value={this.getSelectedValue()}>
             {map(items, ({key, label, title, disabled, doc_count}, idx) => {
               var text = translate(label || title || key)
-              console.log('currentItem')
-              console.log(key,label,title)
+              //console.log('currentItem')
+              //console.log(key,label,title)
               if(text.indexOf('remove')>-1){
                 return ''
               }

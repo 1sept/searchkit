@@ -91,8 +91,8 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   render() {
     const { listComponent, containerComponent, showCount, title, id, countFormatter } = this.props
     const items = this.getItems();
-    //console.log('this item')
-    //console.log(items)
+    // console.log('this props')
+    // console.log(this.props)
     if(this.props.customFieldsOption){
       //console.log(this.props.skManager);
       if(this.props.skManager){
