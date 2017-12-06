@@ -118,11 +118,15 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         // key:"Английский язык"
         //console.log('actions')
         //console.log(actions)
+        let origKey = option.key
+        if (option.key == undefined){
+          origKey = label || option.addText
+        }
         return React.createElement(itemComponent, {
           label: translate(label),
           onClick: () => toggleFunc(option.key),
           bemBlocks: bemBlocks,
-          key: option.key,
+          key: origKey,
           itemKey: option.key,
           count: countFormatter(option.doc_count),
           rawCount: option.doc_count,

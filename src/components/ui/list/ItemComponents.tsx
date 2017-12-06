@@ -29,7 +29,7 @@ function itemRenderer(props: ItemComponentProps) {
       <FastClick handler={itemKey === undefined ? ('') : onClick}>
         <div className={className} data-qa="option" data-key={itemKey} data-type={category}>
           {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active })} data-type={category}></input> : undefined}
-          <div data-qa="label" className={block("text")}><span className={icon ? icon : ''}></span>{label}<span className="classText">{addText ? addText : ''}</span></div>
+          <div data-qa="label" className={block("text")}><span className={icon ? ('fi flaticon-'+icon) : ('')}></span>{label}<span className="classText">{addText ? addText : ''}</span></div>
           {hasCount ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}
         </div>
       </FastClick>
