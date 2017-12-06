@@ -56,8 +56,11 @@ export class Select extends React.Component<ListProps, any> {
     //console.log('template');
     //console.log(state);
     var baseUrl = "/user/pages/images/flags";
+    // var $state = $(
+    //   '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+    // );
     var $state = $(
-      '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+      '<span>' + state.text + '</span>'
     );
     return $state;
   }
